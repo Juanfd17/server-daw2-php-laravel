@@ -1,5 +1,5 @@
 <?php
-    $numero = 121;
+    $numero = 12121;
     $numero = strval($numero);
     $longitud = strlen($numero);
 
