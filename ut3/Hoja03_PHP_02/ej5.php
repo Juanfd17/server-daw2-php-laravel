@@ -8,9 +8,9 @@ dígitos de control).
 • Comprobar que el código de control es correcto, para ello, se deben generar y comparar
 (buscar la función de generación del dígito de control)*/
 
-    echo "IBAN1 <br>";
+    echo "IBAN 1 <br>";
     comprobarIBAN("ES84-3059-0066-63-2995519812");
-    echo "<br> IBAN2 <br>";
+    echo "<br> IBAN 2 <br>";
     comprobarIBAN("ES35-2103-7044-91-0010017931");
     function comprobarIBAN($cuenta){
         $cuenta= explode("-", $cuenta);
