@@ -8,27 +8,74 @@ dígitos de control).
 • Comprobar que el código de control es correcto, para ello, se deben generar y comparar
 (buscar la función de generación del dígito de control)*/
 
-    $cuenta = "ES12-1234-5678-90-1234567890";
+    echo "IBAN1 <br>";
+    comprobarIBAN("ES84-3059-0066-63-2995519812");
+    echo "<br> IBAN2 <br>";
+    comprobarIBAN("ES35-2103-7044-91-0010017931");
     function comprobarIBAN($cuenta){
         $cuenta= explode("-", $cuenta);
 
         $coPais = ($cuenta[0]);
-        $coEntidad = ($cuenta[1]);
-        $coOficina = ($cuenta[2]);
-        $coControl = ($cuenta[3]);
-        $coCuenta = ($cuenta[4]);
+        $coEntidad = $cuenta[1];
+        $coOficina = $cuenta[2];
+        $coControl = $cuenta[3];
+        $coCuenta = $cuenta[4];
 
         monstrar($coEntidad);
         monstrar($coOficina);
         monstrar($coCuenta);
         monstrar($coControl);
+
+        comprobarCoControl($coControl,$coEntidad, $coOficina, $coCuenta);
     }
 
     function monstrar($mensaje){
         echo $mensaje."<br>";
     }
 
-    function comprobarCoControl($control, $cuenta){
+    function comprobarCoControl($control,$coEntidad, $coOficina, $cuenta){
+        $controlCalculado = calPrimerDigitoControl($coEntidad, $coOficina);
+        $controlCalculado *= 10;
+        $controlCalculado += calSegunfoDigitoControl($cuenta);
+        echo ($controlCalculado == $control) ? "Correcto" : "Incorrecto".$controlCalculado;
+    }
 
+    function calPrimerDigitoControl($coEntidad, $coOficina){
+        $multiplicaciones = array(6,3,7,9,10,5,8,4);
+        $cadenaTotal = $coEntidad.$coOficina;
+        settype($cadenaTotal, "integer");
+        $suma = 0;
+
+        for ($i = 0; $i < count($multiplicaciones); $i++) {
+            $suma += ($cadenaTotal % 10) * $multiplicaciones[$i];
+            $cadenaTotal = (int)($cadenaTotal / 10);
+        }
+
+        $suma = 11 - ($suma % 11);
+        if ($suma == 10) {
+            $suma = 1;
+        } else if ($suma == 11) {
+            $suma = 0;
+        }
+        return $suma;
+    }
+
+    function calSegunfoDigitoControl($cuCuenta){
+        $multiplicaciones = array(6,3,7,9,10,5,8,4,2,1);
+        $suma = 0;
+        settype($cuCuenta, "integer");
+
+        for ($i = 0; $i < count($multiplicaciones); $i++) {
+            $suma += ($cuCuenta % 10) * $multiplicaciones[$i];
+            $cuCuenta = (int)($cuCuenta / 10);
+        }
+
+        $suma = 11 - ($suma % 11);
+        if ($suma == 10) {
+            $suma = 1;
+        } else if ($suma == 11) {
+            $suma = 0;
+        }
+        return $suma;
     }
 ?>
