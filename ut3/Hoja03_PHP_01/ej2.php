@@ -13,20 +13,18 @@
     echo "es capicua";
     */
 
-    $numero = 4664;
-    $numeroRebes = 0;
+$numero = 46364;
+echo comprobarCapicua($numero) ? "es capicua": "no es capicua";
+function comprobarCapicua($numero) {
+    $numeroReves = 0;
     $numeroOriginal = $numero;
 
     while ($numero != 0) {
-        $numeroRebes += $numero % 10;
-        $numeroRebes *= 10;
+        $numeroReves += $numero % 10;
+        $numeroReves *= 10;
         $numero = (int)($numero / 10);
     }
 
-    if ($numeroOriginal == $numeroRebes / 10) {
-        echo "es capicua";
-    } else {
-        echo "no es capicua";
-    }
-
+    return $numeroOriginal == $numeroReves / 10;
+}
 ?>
