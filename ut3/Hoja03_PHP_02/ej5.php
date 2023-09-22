@@ -34,40 +34,21 @@ dígitos de control).
     }
 
     function comprobarCoControl($control,$coEntidad, $coOficina, $cuenta){
-        $controlCalculado = calPrimerDigitoControl($coEntidad, $coOficina);
+        $controlCalculado = calcularDigitoControl($coEntidad.$coOficina, array(6,3,7,9,10,5,8,4));
         $controlCalculado *= 10;
-        $controlCalculado += calSegunfoDigitoControl($cuenta);
+        $controlCalculado += calcularDigitoControl($cuenta, array(6,3,7,9,10,5,8,4,2,1));
+
+
         echo ($controlCalculado == $control) ? "Correcto" : "Incorrecto".$controlCalculado;
     }
 
-    function calPrimerDigitoControl($coEntidad, $coOficina){
-        $multiplicaciones = array(6,3,7,9,10,5,8,4);
-        $cadenaTotal = $coEntidad.$coOficina;
-        settype($cadenaTotal, "integer");
+    function calcularDigitoControl($numero, $multiplicaciones){
         $suma = 0;
+        settype($numero, "integer");
 
         for ($i = 0; $i < count($multiplicaciones); $i++) {
-            $suma += ($cadenaTotal % 10) * $multiplicaciones[$i];
-            $cadenaTotal = (int)($cadenaTotal / 10);
-        }
-
-        $suma = 11 - ($suma % 11);
-        if ($suma == 10) {
-            $suma = 1;
-        } else if ($suma == 11) {
-            $suma = 0;
-        }
-        return $suma;
-    }
-
-    function calSegunfoDigitoControl($cuCuenta){
-        $multiplicaciones = array(6,3,7,9,10,5,8,4,2,1);
-        $suma = 0;
-        settype($cuCuenta, "integer");
-
-        for ($i = 0; $i < count($multiplicaciones); $i++) {
-            $suma += ($cuCuenta % 10) * $multiplicaciones[$i];
-            $cuCuenta = (int)($cuCuenta / 10);
+            $suma += ($numero % 10) * $multiplicaciones[$i];
+            $numero = (int)($numero / 10);
         }
 
         $suma = 11 - ($suma % 11);
