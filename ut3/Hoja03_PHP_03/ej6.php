@@ -1,6 +1,4 @@
 <?php
-
-// Array de verbos regulares
 $verbos = array(
     "hablar",
     "comer",
@@ -9,10 +7,8 @@ $verbos = array(
     "aprender"
 );
 
-// Elegir un verbo al azar
 $verboElegido = $verbos[array_rand($verbos)];
 
-// Función para conjugar un verbo en presente de indicativo
 function conjugarPresente($verbo) {
     $terminaciones = [];
 
@@ -35,8 +31,7 @@ function conjugarPresente($verbo) {
     echo "Ellos/Ellas ".$verbo.$terminaciones[5]."<br>";
 }
 
-// Conjugar el verbo elegido
-echo "Verbo elegido: $verboElegido <br><br>";
-conjugarPresente($verboElegido);
+    echo "Verbo elegido: $verboElegido <br><br>";
+    conjugarPresente($verboElegido);
 
 ?>
