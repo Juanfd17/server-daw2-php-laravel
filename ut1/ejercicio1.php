@@ -1,4 +1,4 @@
 <?php
-$texto="hola";
-echo $texto;
+    $texto="hola";
+    echo $texto;
 ?>
