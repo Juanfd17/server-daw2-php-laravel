@@ -21,8 +21,6 @@ function conjugarPresente($verbo) {
     }
 
     $verbo = substr($verbo, 0, -2);
-
-    // Conjugar el verbo en presente de indicativo
     echo "Yo ".$verbo.$terminaciones[0]."<br>";
     echo "Tú ".$verbo.$terminaciones[1]."<br>";
     echo "Él/Ella ".$verbo.$terminaciones[2]."<br>";
