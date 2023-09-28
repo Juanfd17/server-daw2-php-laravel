@@ -4,5 +4,6 @@
     for ($i = 1; $i <= 10; $i++) {
         echo "<p>$i X $numero = ".$i * $numero. "</p><br>";
     }
-    echo "<a href='ej4.html'>Volver</a>"
+    echo "<a href='ej4.html'>Volver</a>";
+
 ?>

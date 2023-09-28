@@ -1,6 +1,7 @@
 <?php
     $nMayor = $_POST["nMayor"];
     $nMenor = $_POST["nMenor"];
+
     $repeticiones = $nMayor - $nMenor;
 
     echo "<h1>LSITA DE PARES DE NÚMEOS DE $nMenor Y $nMayor</h1><br>";

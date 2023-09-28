@@ -1,4 +1,9 @@
 <?php
-print_r($_GET);
-print_r($_POST);
+if (isset($_GET["curso"])){
+    print_r($_GET);
+}
+
+if (isset($_POST["curso"])){
+    print_r($_POST);
+}
 ?>
