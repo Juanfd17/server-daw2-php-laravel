@@ -11,70 +11,74 @@
                 "Ford" => ["Fiesta", "F150", "Raptor", "Focus", "Puma", "Kuga"]
             ];
         }
+
+        if ((!isset($_POST["mostrar"]) and !isset($_POST["actualizar"])) or isset($_POST["mostrar"])){
+            formulario($marcaCoches);
+        }
+
+        if (isset($_POST["mostrar"])){
+            $marca = $_POST["marca"];
+            mostrar($marcaCoches[$marca], $marca);
+        } elseif (isset($_POST["actualizar"])){
+            $marca = $_POST["marca"];
+            $cochesActualizados = actualizar($_POST["coche"], $marcaCoches[$marca]);
+
+            formulario($marcaCoches);
+        }
+
+    function formulario($marcaCoches){
     ?>
+        <form name="input" action="" method="post">
+            <h1>Busca tu coche</h1>
+            <label for="marca">Marca:
+                <select name="marca">
+                    <?php
+                        foreach ($marcaCoches as $marca => $coche){
+                            if ($marca == $_POST["marca"]){
+                                echo "<option value='$marca' selected>$marca</option>";
 
-    <form name="input" action="" method="post">
-        <h1>Busca tu coche</h1>
-        <label for="marca">Marca:
-            <select name="marca">
-                <?php
-                    foreach ($marcaCoches as $marca => $coche){
-                        if ($marca == $_POST["marca"]){
-                            echo "<option value='$marca' selected>$marca</option>";
-
-                        } else {
-                            echo "<option value='$marca'>$marca</option>";
+                            } else {
+                                echo "<option value='$marca'>$marca</option>";
+                            }
                         }
-                    }
-                ?>
-            </select>
-        </label>
-        <br />
+                    ?>
+                </select>
+            </label>
+            <br />
 
-        <input type="submit" name="mostrar" value="Mostrar" />
+            <input type="submit" name="mostrar" value="Mostrar" />
+        </form>
+    <?php
+    }
+    ?>
 
 
     <?php
-        if (isset($_POST["mostrar"]) or isset($_POST["actualizar"])) {
-            $marca = $_POST["marca"];
-            ?>
-                <h1>Coche</h1>
-
+    function mostrar($coches, $marca) {
+    ?>
+        <form name="input" action="" method="post">
+            <label for="coche[]">Coches
+                <br>
                 <?php
-                    foreach ($marcaCoches[$marca] as $coche){
-                       echo "<input type='text' name='coche[]' value='$coche'/> <br>";
+                    echo "<input type='hidden' name='marca' value=$marca>";
+                    foreach ($coches as $coche){
+                        echo "<input type='text' name='coche[]' value='$coche'/> <br>";
                     }
                 ?>
-                <input type="submit" name="actualizar" value="Actualizar" />
+            </label>
+            <input type='submit' name='actualizar' value='Actualizar'/>
+        </form>
+    <?php
+    }
 
-            <?php
-        }
+    function actualizar($cochesActualizados, $cochesAntes){
 
-        if (isset($_POST['actualizar'])){
-            $actualizados = [
-                    "nuevos" =>[],
-                    "viejos" =>[]
-            ];
-            $cochesNuevos = $_POST["coche"];
-
-            for ($i = 0; $i < count($cochesNuevos); $i++) {
-                if ($cochesNuevos[$i] != $marcaCoches[$marca][$i]){
-                    $actualizados["nuevos"][] = $cochesNuevos[$i];
-                    $actualizados["viejos"][] = $marcaCoches[$marca][$i];
-
-                    $marcaCoches[$marca][$i] = $cochesNuevos[$i];
+            for ($i = 0; $i < count($cochesActualizados); $i++) {
+                if ($cochesActualizados[$i] != $cochesAntes[$i]){
+                    echo "<h1>Se ha actualizado ".$cochesAntes[$i]." por ".$cochesActualizados[$i]."</h1>";
                 }
-            }
-
-            for ($j = 0; $j < count($actualizados["nuevos"]); $j++) {
-                echo "<h1>Se ha actualizado ".$actualizados["viejos"][$j]." por ".$actualizados["nuevos"][$j]."</h1>";
-
-                print_r ($marcaCoches[$marca]);
-
             }
         }
     ?>
-    </form>
-
 </body>
 </html>
