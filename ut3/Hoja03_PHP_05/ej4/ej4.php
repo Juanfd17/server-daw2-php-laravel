@@ -36,7 +36,7 @@
 
     <label for="puesto">Puesto:
         <?php
-            if ("entrenador" == $_POST["puesto"]){
+            if (!isset($_POST["puesto"]) or "entrenador" == $_POST["puesto"]){
                 echo "<input type='radio' name='puesto' value='entrenador' checked> Entrenador";
                 echo "<input type='radio' name='puesto' value='jugadores'> Jugadores";
             } else {
@@ -60,21 +60,40 @@
 
     function mostrar($equipos, $equipo, $puesto){
         echo "<table border='2'>";
-        if ($equipo == "todos"){
-            foreach ($equipos as $equipoa => $entrenador){
-                foreach ($equipos[$equipoa][$puesto] as $nombre){
-                    $ruta = $equipos[$equipoa]["rutaIMG"].$puesto.'/'.$nombre.".jpeg";
+            if ($equipo == "todos"){
+                echo "<tr>";
+                    foreach (array_keys($equipos) as $equipo){
+                        echo "<td><h1>$equipo</h1></td>";
+                    }
+                echo "</tr>";
+
+                for ($i = 0; $i < count(nombres($equipos,$equipo, $puesto)); $i++) {
+                    echo "<tr>";
+                        foreach (array_keys($equipos) as $equipo){
+                            echo "<td>";
+                                $nombre = nombres($equipos,$equipo, $puesto)[$i];
+                                echo "<p>$nombre</p>";
+                                $ruta = $equipos[$equipo]["rutaIMG"].$puesto.'/'.$nombre.".jpeg";
+                                echo ("<img src='$ruta' height='100px'></td>");
+                            echo "</td>";
+                        }
+                    echo "</tr>";
+                }
+
+            } else {
+                foreach ($equipos[$equipo][$puesto] as $nombre){
+                    $ruta = $equipos[$equipo]["rutaIMG"].$puesto.'/'.$nombre.".jpeg";
                     echo "<tr><td><img src='$ruta' height='100px'></td><td><p>$nombre</p></td></tr>";
                 }
             }
-        } else {
-            foreach ($equipos[$equipo][$puesto] as $nombre){
-                $ruta = $equipos[$equipo]["rutaIMG"].$puesto.'/'.$nombre.".jpeg";
-                echo "<tr><td><img src='$ruta' height='100px'></td><td><p>$nombre</p></td></tr>";
-            }
-        }
-
         echo "</table>";
+    }
 
+    function nombres($equipos,$equipo, $puesto){
+        if (isset($posicion)){
+            return $equipos[$equipo][$puesto][$posicion];
+        } else{
+            return $equipos[$equipo][$puesto];
+        }
     }
 ?>
