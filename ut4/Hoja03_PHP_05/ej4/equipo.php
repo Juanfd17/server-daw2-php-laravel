@@ -39,5 +39,10 @@ class equipo{
         return $texto;
     }
 
+    public function imprimirEntrenador(){
+        $texto = $this->entrenador->__toString();
+        return $texto;
+    }
+
 
 }

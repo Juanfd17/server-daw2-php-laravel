@@ -26,7 +26,29 @@ class liga{
 
     public function todosJugadores(){
         $texto = "";
+        $texto .= "<tr>";
+        foreach ($this->equipos as $equipo){
+            $texto .= "<td>".$equipo->getNombre()."<tr>";
+            $texto .= $equipo->imprimirJugadores();
+            $texto .= "</tr></td>";
+        }
+        $texto .= "</tr>";
 
 
+        return $texto;
+    }
+
+    public function todosEntrenadores(){
+        $texto = "";
+        $texto .= "<tr>";
+        foreach ($this->equipos as $equipo){
+            $texto .= "<td>".$equipo->getNombre()."<tr>";
+            $texto .= $equipo->imprimirEntrenador();
+            $texto .= "</tr></td>";
+        }
+        $texto .= "</tr>";
+
+
+        return $texto;
     }
 }

@@ -68,7 +68,11 @@ if (isset($_POST["buscar"])){
 function mostrar($liga, $equipo, $puesto){
     echo "<table border='2'>";
     if ($equipo == "todos"){
-
+        if ($puesto =="entrenador"){
+            echo $liga->todosEntrenadores();
+        } else {
+            echo $liga->todosJugadores();
+        }
     } else {
         if ($puesto == "entrenador"){
             echo $liga->getEquipoNombre($equipo)->getEntrenador();
