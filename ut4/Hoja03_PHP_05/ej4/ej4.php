@@ -1,4 +1,5 @@
 <?php
+    require_once('liga.php');
     require_once('equipo.php');
 $equipos = [
 
@@ -14,8 +15,8 @@ $equipos = [
     ]
 ];
 
-$madrid = new equipo("Ancelotti", ["Courtois", "Benzema", "Vinicius"]);
-print_r($madrid->getJugadoresEquipo());
+$liga = new liga([new equipo("madrid", "Ancelotti", ["Courtois", "Benzema", "Vinicius"], "img/madrid"), new equipo("barcelona", "Xavi", ["Ter Stegen", "Ansu Fati", "Lewandowski"], "img/barcelona")]);
+
 ?>
 
     <form action="" method="post">
@@ -25,12 +26,13 @@ print_r($madrid->getJugadoresEquipo());
             <select name="equipo">
                 <option value="todos">--Todos--</option>
                 <?php
-                foreach ($equipos as $equipo => $entrenador) {
-                    if ($equipo == $_POST["equipo"]) {
-                        echo "<option value='$equipo' selected>$equipo</option>";
+                foreach ($liga->getEquipos() as $equipo){
+                    $nombreEquipo = $equipo->getNombre();
+                    if ($nombreEquipo == $_POST["equipo"]) {
+                        echo "<option value='$nombreEquipo' selected>$nombreEquipo</option>";
 
                     } else {
-                        echo "<option value='$equipo'>$equipo</option>";
+                        echo "<option value='$nombreEquipo'>$nombreEquipo</option>";
                     }
                 }
                 ?>
@@ -60,45 +62,20 @@ print_r($madrid->getJugadoresEquipo());
 
 <?php
 if (isset($_POST["buscar"])){
-    mostrar($equipos ,$_POST["equipo"], $_POST["puesto"]);
+    mostrar($liga ,$_POST["equipo"], $_POST["puesto"]);
 }
 
-function mostrar($equipos, $equipo, $puesto){
+function mostrar($liga, $equipo, $puesto){
     echo "<table border='2'>";
     if ($equipo == "todos"){
-        echo "<tr>";
-        foreach (array_keys($equipos) as $equipo){
-            echo "<td><h1>$equipo</h1></td>";
-        }
-        echo "</tr>";
-
-        for ($i = 0; $i < count(nombres($equipos,$equipo, $puesto)); $i++) {
-            echo "<tr>";
-            foreach (array_keys($equipos) as $equipo){
-                echo "<td>";
-                $nombre = nombres($equipos,$equipo, $puesto)[$i];
-                echo "<p>$nombre</p>";
-                $ruta = $equipos[$equipo]["rutaIMG"].$puesto.'/'.$nombre.".jpeg";
-                echo ("<img src='$ruta' height='100px'></td>");
-                echo "</td>";
-            }
-            echo "</tr>";
-        }
 
     } else {
-        foreach ($equipos[$equipo][$puesto] as $nombre){
-            $ruta = $equipos[$equipo]["rutaIMG"].$puesto.'/'.$nombre.".jpeg";
-            echo "<tr><td><img src='$ruta' height='100px'></td><td><p>$nombre</p></td></tr>";
+        if ($puesto == "entrenador"){
+            echo $liga->getEquipoNombre($equipo)->getEntrenador();
+        } else{
+            echo $liga->getEquipoNombre($equipo)->imprimirJugadores();
         }
     }
     echo "</table>";
-}
-
-function nombres($equipos,$equipo, $puesto){
-    if (isset($posicion)){
-        return $equipos[$equipo][$puesto][$posicion];
-    } else{
-        return $equipos[$equipo][$puesto];
-    }
 }
 ?>

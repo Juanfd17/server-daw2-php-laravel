@@ -16,4 +16,10 @@ class persona{
     public function getImg(){
         return $this->img;
     }
+
+    public function __toString(){
+        return "<tr><td>".$this->nombre."</td><td><img src='$this->img'></td></tr>";
+    }
+
+
 }
