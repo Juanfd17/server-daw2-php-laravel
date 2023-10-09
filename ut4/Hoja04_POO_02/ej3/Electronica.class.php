@@ -1,6 +1,4 @@
 <?php
-
-namespace ej3;
 require_once("Producto.class.php");
 
 class Electronica extends Producto {
@@ -22,6 +20,4 @@ class Electronica extends Producto {
     public function __toString(): string {
         return parent::__toString(). " Plazo garantia: ".$this->plazoGarantia;
     }
-
-
 }

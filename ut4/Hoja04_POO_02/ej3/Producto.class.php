@@ -1,7 +1,4 @@
 <?php
-
-namespace ej3;
-
 abstract class Producto {
     private $codigo;
     private $precio;
@@ -38,8 +35,6 @@ abstract class Producto {
     }
 
     public function __toString(): string {
-        return "Codigo: ".$this->codigo." Precio: ".$this->precio." Nombre: ".$this->precio;
+        return "Codigo: ".$this->codigo." Precio: ".$this->precio." Nombre: ".$this->nombre;
     }
-
-
 }

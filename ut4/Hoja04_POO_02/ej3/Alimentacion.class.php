@@ -1,13 +1,13 @@
 <?php
-
-namespace ej3;
 require_once("Producto.class.php");
 class Alimentacion extends Producto {
-    private $fechaCaducidad;
+    private $mesCaducidad;
+    private $anioCaducidad;
 
-    public function __construct($fechaCaducidad, $codigo, $precio, $nombre) {
+    public function __construct($mesCaducidad, $anioCaducidad, $codigo, $precio, $nombre) {
         parent::__construct($codigo, $precio, $nombre);
-        $this->fechaCaducidad = $fechaCaducidad;
+        $this->mesCaducidad = $mesCaducidad;
+        $this->anioCaducidad = $anioCaducidad;
     }
 
     public function getFechaCaducidad() {
@@ -19,8 +19,6 @@ class Alimentacion extends Producto {
     }
 
     public function __toString(): string {
-        return parent::__toString()." Fecha caducidad: ".$this->fechaCaducidad;
+        return parent::__toString()." Mes caducidad: ".$this->mesCaducidad." Año caducidad: ".$this->anioCaducidad;
     }
-
-
 }
