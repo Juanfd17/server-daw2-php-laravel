@@ -54,6 +54,4 @@ class Libro {
     public function setFechaAdquisicion($fecha_adquisicion): void {
         $this->fecha_adquisicion = $fecha_adquisicion;
     }
-
-
 }

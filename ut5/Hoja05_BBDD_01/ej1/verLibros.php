@@ -10,7 +10,7 @@
     <?php
         require_once ("LibrosDao.class.php");
         $libros = LibrosDao::getLibros();
-
+        echo "<tr><td>Numero Ejemplar</td><td>Titulo</td><td>Año de edicion</td><td>Precio</td><td>Fecha adquisicion</td></tr>";
         foreach ($libros as $libro){
             echo "<tr>";
             foreach ($libro as $dato){

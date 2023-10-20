@@ -8,10 +8,16 @@ class LibrosDao {
         $resultado = $conexion->query($consulta);
         $libros = [];
         while ($registro = $resultado->fetch()) {
-            array_push($libros, $registro);
+            array_push($libros, [$registro['numero_ejemplar'], $registro['titulo'], $registro['anyo_edicion'], $registro['precio'], $registro['fecha_adquisicion']]);
             //echo $registro['numero_ejemplar'].": ".$registro['titulo'].": ".$registro['anyo_edicion'].": ".$registro['precio'].": ".$registro['fecha_adquisicion']."<br />";
         }
 
         return $libros;
+    }
+
+    public static function addLibro($titulo, $anyo_edicion, $precio, $fecha_adquisicion) {
+        $conexion = Conexion::getInstancia()->getConexion();
+        $consulta = "INSERT INTO `dwes_01_libros`.`libros` (`titulo`, `anyo_edicion`, `precio`, `fecha_adquisicion`) VALUES ('$titulo', '$anyo_edicion', '$precio', '$fecha_adquisicion');";
+        $conexion->query($consulta);
     }
 }

@@ -1,6 +1,8 @@
 <?php
+require_once ("LibrosDao.class.php");
 if (isset($_POST["nuevoLibro"])){
-    echo "nuevoLibro";
+    print_r($_POST);
+    LibrosDao::addLibro($_POST["titulo"], $_POST["anio"], $_POST["precio"], $_POST["compra"]);
 }
 ?>
 <!DOCTYPE html>
