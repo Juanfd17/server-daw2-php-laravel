@@ -7,8 +7,8 @@ class Libro {
     private $precio;
     private $fecha_adquisicion;
 
-    public function __construct($numero_ejemplar, $titulo, $anyo_edicion, $precio, $fecha_adquisicion) {
-        $this->numero_ejemplar = $numero_ejemplar;
+    public function __construct($titulo, $anyo_edicion, $precio, $fecha_adquisicion) {
+        $this->numero_ejemplar = 0;
         $this->titulo = $titulo;
         $this->anyo_edicion = $anyo_edicion;
         $this->precio = $precio;

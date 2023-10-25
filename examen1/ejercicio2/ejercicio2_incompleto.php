@@ -51,11 +51,12 @@ function getlibrosAutor($libros, $autor): array {
 }
 
 function categoriaTitulo($libros, $titulo) {
-    foreach ($libros as $categoria){
-        foreach ($categoria as $tituloP){
+    $categorias = array_keys($libros);
+    for ($i = 0; $i < sizeof($libros); $i++) {
+        foreach ($libros[$categorias[$i]] as $tituloP){
 
             if ($tituloP["titulo"] == $titulo){
-                return key($categoria);
+                return $i;
             }
         }
     }
@@ -92,10 +93,9 @@ function categoriaTitulo($libros, $titulo) {
     </form>
 
     <?php
+
     if (isset($_POST["autor"])) {
         $librosAutor = getlibrosAutor($libros,$_POST["autor"]);
-
-        echo (sizeof($librosAutor)." libros encontrados para el autor ".$_POST["autor"]);
 
         echo "<table>";
             foreach ($librosAutor as $libro){

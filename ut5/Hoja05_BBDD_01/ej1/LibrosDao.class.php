@@ -15,9 +15,17 @@ class LibrosDao {
         return $libros;
     }
 
-    public static function addLibro($titulo, $anyo_edicion, $precio, $fecha_adquisicion) {
+    public static function addLibro($libro) {
         $conexion = Conexion::getInstancia()->getConexion();
-        $consulta = "INSERT INTO `dwes_01_libros`.`libros` (`titulo`, `anyo_edicion`, `precio`, `fecha_adquisicion`) VALUES ('$titulo', '$anyo_edicion', '$precio', '$fecha_adquisicion');";
-        $conexion->query($consulta);
+        $consulta = "INSERT INTO `dwes_01_libros`.`libros` (`titulo`, `anyo_edicion`, `precio`, `fecha_adquisicion`) VALUES (?, ?, ?, ?);";
+
+        $stmt = $conexion->prepare($consulta);
+
+        $stmt->bindValue(1, $libro->getTitulo());
+        $stmt->bindValue(2, $libro->getAnyoEdicion());
+        $stmt->bindValue(3, $libro->getPrecio());
+        $stmt->bindValue(4, $libro->getFechaAdquisicion());
+
+        return $stmt->execute();
     }
 }
