@@ -1,5 +1,4 @@
 <?php
-
 class Equipo {
     private $nombre;
     private $ciudad;

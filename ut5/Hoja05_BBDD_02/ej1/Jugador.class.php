@@ -1,5 +1,4 @@
 <?php
-
 class Jugador {
     private $codigo;
     private $nombre;

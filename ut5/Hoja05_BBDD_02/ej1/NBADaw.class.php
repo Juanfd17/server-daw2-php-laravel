@@ -51,4 +51,60 @@ class NBADaw {
         return $jugadoresEquipo;
     }
 
+
+
+    public static function actualizarPesoJugador($codigo, $peso){
+        $conexion = Conexion::getInstancia()->getConexion();
+        $consulta = "UPDATE `dwes_02_nba`.`jugadores` SET `peso` = ? WHERE (`codigo` = ?);";
+        $stmt = $conexion->prepare($consulta);
+
+        $stmt->bindValue(1, $peso);
+        $stmt->bindValue(2, $codigo);
+
+        $stmt->execute();
+    }
+
+    public static function addJugador(Jugador $jugador){
+        $jugadores = NBADaw::getJugadores();
+        $codigo = 0;
+
+        foreach ($jugadores as $jugadorB){
+            if ($jugadorB->getCodigo() > $codigo){
+                $codigo = $jugadorB->getCodigo();
+            }
+        }
+
+        $conexion = Conexion::getInstancia()->getConexion();
+        $consulta = "INSERT INTO `dwes_02_nba`.`jugadores` (`codigo`, `nombre`, `procedencia`, `altura`, `peso`, `posicion`, `nombre_equipo`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        $stmt = $conexion->prepare($consulta);
+
+        $stmt->bindValue(1, ($codigo + 1));
+        $stmt->bindValue(2, $jugador->getNombre());
+        $stmt->bindValue(3, $jugador->getProcedencia());
+        $stmt->bindValue(4, intval($jugador->getAltura()));
+        $stmt->bindValue(5, intval($jugador->getPeso()));
+        $stmt->bindValue(6, $jugador->getPosicion());
+        $stmt->bindValue(7, $jugador->getNombreEquipo());
+
+        $stmt->execute();
+    }
+
+    public static function borrarJugador($codigo){
+        $conexion = Conexion::getInstancia()->getConexion();
+
+        $consulta = "DELETE FROM `dwes_02_nba`.`estadisticas` WHERE (`jugador` = ?);";
+        $stmt = $conexion->prepare($consulta);
+        $stmt->bindValue(1, $codigo);
+
+        $stmt->execute();
+
+        $consulta2 = "DELETE FROM `dwes_02_nba`.`jugadores` WHERE (`codigo` = ?);";
+        $stmt = $conexion->prepare($consulta2);
+
+        $stmt->bindValue(1, $codigo);
+
+        $stmt->execute();
+
+
+    }
 }
