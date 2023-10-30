@@ -58,7 +58,12 @@ if (isset($_POST["mostrar"])){
         </label>
         <br>
         <select name="posicion" id="posicion" required>Posicion:
-            <option name="posicion" value="F-G">F-G</option>
+            <?php
+                $posiciones = NBADaw::getPosiciones();
+                foreach ($posiciones as $posicion){
+                    echo "<option name=".$posicion["posicion"]." value=".$posicion["posicion"]." label=".$posicion["posicion"].">";
+                }
+            ?>
         </select>
         <br>
         <input type="submit" name="actualizar" value="Actualizar" />

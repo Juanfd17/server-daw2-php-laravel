@@ -39,16 +39,16 @@ class NBADaw {
     }
 
     public static function getJugadoresEquipo($equipo){
-        $jugadores = NBADaw::getJugadores();
-        $jugadoresEquipo = [];
+        $conexion = Conexion::getInstancia()->getConexion();
+        $consulta = "SELECT * FROM dwes_02_nba.jugadores where nombre_equipo = \"$equipo\"";
+        $resultado = $conexion->query($consulta);
 
-        foreach ($jugadores as $jugador){
-            if ($jugador->getNombreEquipo() === $equipo){
-                array_push($jugadoresEquipo, $jugador);
-            }
+        $jugadores = [];
+        while ($registro = $resultado->fetch()) {
+            array_push($jugadores, new Jugador($registro['codigo'], $registro['nombre'], $registro['procedencia'], $registro['altura'], $registro['peso'], $registro['posicion'], $registro['nombre_equipo']));
         }
 
-        return $jugadoresEquipo;
+        return $jugadores;
     }
 
 
@@ -104,7 +104,19 @@ class NBADaw {
         $stmt->bindValue(1, $codigo);
 
         $stmt->execute();
+    }
 
+    public static function getPosiciones(){
+        $conexion = Conexion::getInstancia()->getConexion();
 
+        $consulta = "SELECT DISTINCT posicion FROM jugadores;";
+        $resultado = $conexion->query($consulta);
+
+        $posiciones = [];
+        while ($registro = $resultado->fetch()) {
+            array_push($posiciones, $registro);
+        }
+
+        return $posiciones;
     }
 }
