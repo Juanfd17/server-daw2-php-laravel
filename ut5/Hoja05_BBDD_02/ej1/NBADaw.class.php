@@ -102,9 +102,6 @@ class NBADaw {
 
         $stmt->execute();
 
-        $filas_afectadas1 = $stmt->rowCount();
-
-
         $consulta2 = "DELETE FROM `dwes_02_nba`.`jugadores` WHERE (`codigo` = ?);";
         $stmt = $conexion->prepare($consulta2);
 
@@ -112,9 +109,9 @@ class NBADaw {
 
         $stmt->execute();
 
-        $filas_afectadas2 = $stmt->rowCount();
+        $filas_afectadas = $stmt->rowCount();
 
-        return $filas_afectadas1 > 0 && $filas_afectadas2 > 0;
+        return $filas_afectadas > 0;
     }
 
     public static function getPosiciones(){
@@ -136,11 +133,11 @@ class NBADaw {
         $conexion = Conexion::getInstancia()->getConexion();
         $conexion->beginTransaction();
 
-        if (NBADaw::addJugador($nuevoJugador)){
+        if (!NBADaw::addJugador($nuevoJugador)){
             $ok = false;
         }
 
-        if (NBADaw::borrarJugador($jugadorBiejo)){
+        if (!NBADaw::borrarJugador($jugadorBiejo)){
             $ok = false;
         }
 
