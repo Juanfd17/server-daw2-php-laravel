@@ -74,8 +74,7 @@ if (isset($_POST["mostrar"])){
 if (isset($_POST["actualizar"])){
     $nuevoJugador = new Jugador(0, $_POST["nombre"], $_POST["procedencia"], $_POST["altura"], $_POST["peso"], $_POST["posicion"],  $_POST["equipo"]);
 
-    NBADaw::addJugador($nuevoJugador);
-    NBADaw::borrarJugador($_POST["jugador"]);
+    NBADaw::traspaso($nuevoJugador, $_POST["jugador"]);
 }
 ?>
 
