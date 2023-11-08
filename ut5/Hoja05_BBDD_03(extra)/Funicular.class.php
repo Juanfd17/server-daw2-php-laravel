@@ -98,27 +98,22 @@ class Funicular {
 
         $conexion = Conexion::getInstancia()->getConexion();
         $conexion->beginTransaction();
+        $actualicaciones = 0;
+        for ($plaza = 0; $plaza < sizeof($plazas); $plaza++) {
+            $consulta = "UPDATE plazas SET precio = ? WHERE numero = ?";
+            $stmt = $conexion->prepare($consulta);
+            $stmt->bindParam(1, $precios[$plaza]);
+            $stmt->bindParam(2, $plazas[$plaza]);
 
-        //meter for
-        $consulta = "UPDATE plazas SET precio = ? WHERE numero = ?";
-        $stmt = $conexion->prepare($consulta);
-        $stmt->bindParam(1, $precio);
-        $stmt->bindParam(2, $nPlaza);
-
-        $stmt->execute();
-
-        //acabar for
-
-        if (!$stmt->rowCount() > 0){
-            //$ok = false;
+            $stmt->execute();
         }
+
 
         if ($ok){
             $conexion->commit();
         }
         else{
             $conexion->rollback();
-            throw new Exception("Algo ha ido mal");
         }
 
         return $ok;
