@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class InicioController extends Controller {
     public function inicio(){
-        return redirect() -> route("animales.index");
+        //return redirect()->action([AnimalController::class,'index']);
+        return redirect()->route('animales.index');
+
     }
 }
