@@ -18,11 +18,13 @@ class AnimalController extends Controller{
     }
 
     public function show($animal){
-        return view('animales.show', compact('animal'));
+        $animalObj = $this->animales[$animal];
+        $animalObj["id"] = $animal;
+        return view('animales.show', ['animal' => $animalObj]);
     }
 
     public function edit($animal){
-        return view('animales.edit', compact('animal'));
+        return view('animales.edit', ['animal' => $this->animales[$animal]]);
     }
 
     public function update(Request $request, $id)

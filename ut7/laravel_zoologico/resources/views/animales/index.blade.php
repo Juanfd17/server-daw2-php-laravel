@@ -10,7 +10,7 @@
             <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="bg-dark p-3">
                     <a class="row justify-content-center" href="{{ route('animales.show' , $clave ) }}">
-                        <img src="img/animales/{{$animal['imagen']}}" style="height:200px; width:200px;"/>
+                        <img src="{{asset('assets/img/animales')}}/{{$animal['imagen']}}" style="height:200px; width:200px;"/>
                         <h4 style="min-height:45px;margin:5px 0 10px 0">
                             {{$animal['especie']}}
                         </h4>
