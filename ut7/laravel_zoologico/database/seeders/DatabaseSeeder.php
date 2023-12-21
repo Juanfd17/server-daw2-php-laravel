@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('revisiones')->delete();
         DB::table('animales')->delete();
+
         $this->call(AnimalSeeder::class);
+        $this->call(RevisionesSeeder::class);
     }
 }

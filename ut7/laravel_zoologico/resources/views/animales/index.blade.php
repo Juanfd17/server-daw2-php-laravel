@@ -14,6 +14,8 @@
                         <h4 style="min-height:45px;margin:5px 0 10px 0">
                             {{$animal->especie}}
                         </h4>
+                        <p>Edad: {{$animal->getEdad()}}</p>
+                        <p>nuemero de revisiones: {{$animal->cuantasRevisiones()}}</p>
                     </a>
                 </div>
             </div>

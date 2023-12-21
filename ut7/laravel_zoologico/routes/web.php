@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\InicioController;
+use App\Http\Controllers\RevisionControler;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,5 @@ Route::get('animales/crear', [AnimalController::class, 'create'])->name("animale
 Route::get('animales/{animal}', [AnimalController::class, 'show'])->name("animales.show");
 
 Route::get('animales/{animal}/editar', [AnimalController::class, 'edit'])->name("animales.edit");
+
+Route::get('revisiones/{animal}/crear', [RevisionControler::class, 'create'])->name("revisiones.create");

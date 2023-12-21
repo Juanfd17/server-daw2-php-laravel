@@ -11,7 +11,7 @@
             <div class="card-header text-center">
                 Añadir animal
             </div>
-            <div class="card-body" style="padding:30px">
+            <form class="card-body" style="padding:30px">
                 {{-- TODO: Abrir el formulario e indicar el método POST --}}
                 {{-- TODO: Protección contra CSRF --}}
                 <div class="mb-3">
@@ -48,7 +48,7 @@
                     </button>
                 </div>
                 {{-- TODO: Cerrar formulario --}}
-            </div>
+            </form>
         </div>
     </div>
 </div>
