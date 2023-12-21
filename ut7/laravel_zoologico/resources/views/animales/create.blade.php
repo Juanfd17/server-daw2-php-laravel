@@ -11,7 +11,8 @@
             <div class="card-header text-center">
                 Añadir animal
             </div>
-            <form class="card-body" style="padding:30px">
+            <form action="{{route('animales.store')}}" method="post" enctype="multipart/form-data" class="card-body" style="padding:30px">
+                @csrf
                 {{-- TODO: Abrir el formulario e indicar el método POST --}}
                 {{-- TODO: Protección contra CSRF --}}
                 <div class="mb-3">
@@ -40,7 +41,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="img">Imagen</label>
-                    <input type="text" name="img" id="img" class="form-control" required>
+                    <input type="file" name="img" id="img" class="form-control" required>
                 </div>
                 <div class="mb-3 text-center">
                     <button type="submit" class="btn btn-success" style="padding:8px 100px;margin-top:25px;">

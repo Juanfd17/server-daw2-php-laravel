@@ -5,7 +5,7 @@
 @section('contenido')
     <h1>{{$animal->especie}}</h1>
     <div class="row">
-        <div class="col-3" style="background-image: url('{{asset('assets/img/animales')}}/{{$animal->imagen}}'); background-repeat: no-repeat;">
+        <div class="col-3" style="background-image: url('{{asset('assets/img/animales')}}/{{$animal->imagen}}'); background-size: contain; background-repeat: no-repeat;">
         </div>
 
         <div class="col-9">

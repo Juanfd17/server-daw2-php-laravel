@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Animal;
+use App\Models\Revision;
 use Illuminate\Http\Request;
 
 class RevisionControler extends Controller
@@ -32,9 +33,16 @@ class RevisionControler extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $revision= new Revision();
+
+        $revision->animal_id = $request->id;
+        $revision->fechaRevision= $request->fecha;
+        $revision->descripcion = $request->descripcion;
+
+        $revision->save();
+
+        return view('animales.index', ['animales' => Animal::all()]);;
     }
 
     /**

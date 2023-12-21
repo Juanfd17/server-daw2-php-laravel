@@ -11,12 +11,16 @@
                 <div class="card-header text-center">
                     Editar animal
                 </div>
-                <div class="card-body" style="padding:30px">
+                <form action="{{ route('animales.update', $animal) }}" method="post" enctype="multipart/form-data" class="card-body" style="padding:30px">
+                    @csrf
+                    @method('put')
                     {{-- TODO: Abrir el formulario e indicar el método POST --}}
                     {{-- TODO: Protección contra CSRF --}}
+                    <input type="hidden" name="slug" id="slug" class="form-control" value="{{$animal->slug}}">
                     <div class="mb-3">
                         <label for="especie">Especie</label>
                         <input type="text" name="especie" id="especie" class="form-control" value="{{$animal->especie}}" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="peso">Peso</label>
@@ -40,7 +44,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="img">Imagen</label>
-                        <input type="text" name="img" id="img" class="form-control" value="{{$animal->imagen}}" required>
+                        <input type="file" name="img" id="img" class="form-control">
                     </div>
                     <div class="mb-3 text-center">
                         <button type="submit" class="btn btn-success" style="padding:8px 100px;margin-top:25px;">
@@ -48,7 +52,7 @@
                         </button>
                     </div>
                     {{-- TODO: Cerrar formulario --}}
-                </div>
+                </form>
             </div>
         </div>
     </div>

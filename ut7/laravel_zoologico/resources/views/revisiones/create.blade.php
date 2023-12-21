@@ -11,10 +11,14 @@
                 <div class="card-header text-center">
                     Añadir revision para {{$animal->especie}}
                 </div>
-                <form class="card-body" style="padding:30px">
+                <form action="{{route('revisiones.store')}}" method="post" enctype="multipart/form-data" class="card-body" style="padding:30px">
+                    @csrf
+                    <input type="hidden" name="slug" id="slug" class="form-control" value="{{$animal->slug}}">
+                    <input type="hidden" name="id" id="id" class="form-control" value="{{$animal->id}}">
+
                     <div class="mb-3">
                         <label for="fecha">Fecha</label>
-                        <input type="date" name="fecha" id="fechaN" class="form-control" required>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
