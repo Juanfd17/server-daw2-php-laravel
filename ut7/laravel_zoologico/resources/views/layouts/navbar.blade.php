@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       {{--@if(Auth::check() )--}}
-      
+
       <li class="nav-item">
         <a href="{{route('animales.index')}}" class="nav-link {{ request()->routeIs('animales.*') && !request()->routeIs('animales.create')? ' active' : ''}}">Listado de animales</a>
       </li>
@@ -20,7 +20,7 @@
         <form class="d-flex">
           <input id="busqueda" class="form-control mr-sm-3" type="text" placeholder="Buscar" aria-label="Buscar">
         </form>
-        
+
         <ul class="navbar-nav navbar-right">
           <li class="nav-item">
             <a href="{{ route('profile.edit') }}"  class="nav-link">
@@ -42,10 +42,10 @@
     @else
         <ul class="navbar-nav navbar-right">
             <li class="nav-item">
-              <a href="{{url('login')}}" class="nav-link">Login</a>
+              <a href="{{url('login')}}" class="nav-link">Iniciar sesion</a>
             </li>
         </ul>
-    @endif 
+    @endif
   </div>
 </div>
 </nav>
