@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AnimalController;
-use App\Http\Controllers\InicioController;
-use App\Http\Controllers\RevisionControler;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -11,25 +9,21 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
 |
 */
 
-Route::get('/', [InicioController::class, 'inicio'])->name("inicio");
 
-route::get('animales', [AnimalController::class, 'index'])->name("animales.index");
 
-Route::get('animales/crear', [AnimalController::class, 'create'])->name("animales.create");
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('animales', [AnimalController::class, 'store'])->name("animales.store");
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::put('animales/{animal}', [AnimalController::class, 'update'])->name("animales.update");
-
-Route::get('animales/{animal}', [AnimalController::class, 'show'])->name("animales.show");
-
-Route::get('animales/{animal}/editar', [AnimalController::class, 'edit'])->name("animales.edit");
-
-Route::get('revisiones/{animal}/crear', [RevisionControler::class, 'create'])->name("revisiones.create");
-
-Route::post('revisiones/animal', [RevisionControler::class, 'store'])->name('revisiones.store');
+require __DIR__.'/auth.php';
