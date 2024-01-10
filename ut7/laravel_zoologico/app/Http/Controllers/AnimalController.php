@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class AnimalController extends Controller{
     public function index() {
-        return view('animales.index', ['animales' => Animal::all()]);
+        return view('animales.index', ['animales' => Animal::paginate(6)]);
     }
 
     public function create(){

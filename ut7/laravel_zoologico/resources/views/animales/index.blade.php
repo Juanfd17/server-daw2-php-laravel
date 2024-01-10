@@ -20,5 +20,6 @@
                 </div>
             </div>
         @endforeach
+    {{$animales->links()}}
     </div>
 @endsection
