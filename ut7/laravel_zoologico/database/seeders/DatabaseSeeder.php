@@ -22,11 +22,19 @@ class DatabaseSeeder extends Seeder
         $this->call(AnimalSeeder::class);
         $this->call(RevisionesSeeder::class);
 
-        Role::create(['name' => 'admin']);
+        $adminRol  = Role::create(['name' => 'admin']);
+        $gestorRol = Role::create(['name' => 'gestor']);
 
         DB::table('users')->delete();
         User::factory(5)->create();
-        $userAdmin = User::factory()->create(['name' => 'juan', 'email' => 'juanfd17@educastur.es', 'password' => bcrypt("6007")]);
-        $userAdmin->assignRole('admin');
+
+        $user = User::factory()->create(['name' => 'juan', 'email' => 'juanfd17@educastur.es', 'password' => bcrypt("6007")]);
+        $user->assignRole($adminRol);
+
+        $user = User::factory()->create(['name' => 'gestor', 'email' => 'gestor@educastur.es', 'password' => bcrypt("gestor")]);
+        $user->assignRole($gestorRol);
+
+        $user = User::factory()->create(['name' => 'admin', 'email' => 'admin@educastur.es', 'password' => bcrypt("admin")]);
+        $user->assignRole($adminRol);
     }
 }

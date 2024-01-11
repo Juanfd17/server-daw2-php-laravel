@@ -41,8 +41,18 @@ Route::put('animales/{animal}', [AnimalController::class, 'update'])->name("anim
 
 Route::get('animales/{animal}', [AnimalController::class, 'show'])->name("animales.show");
 
-Route::get('animales/{animal}/editar', [AnimalController::class, 'edit'])->name("animales.edit")->middleware('auth');
 
-Route::get('revisiones/{animal}/crear', [RevisionControler::class, 'create'])->name("revisiones.create")->middleware('auth');
 
 Route::post('revisiones/animal', [RevisionControler::class, 'store'])->name('revisiones.store');
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    // Rutas solo accesibles para usuarios con el rol 'admin'
+    Route::get('revisiones/{animal}/crear', [RevisionControler::class, 'create'])->name("revisiones.create")->middleware('auth');
+});
+
+Route::middleware(['auth', 'role:admin|gestor'])->group(function () {
+    // Rutas solo accesibles para usuarios con el rol 'admin' o 'gestor'
+    Route::get('animales/{animal}/editar', [AnimalController::class, 'edit'])->name("animales.edit")->middleware('auth');
+});
+
+
