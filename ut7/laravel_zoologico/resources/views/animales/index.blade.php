@@ -16,6 +16,16 @@
                         </h4>
                         <p>Edad: {{$animal->getEdad()}}</p>
                         <p>nuemero de revisiones: {{$animal->cuantasRevisiones()}}</p>
+
+                        @if (count($animal->cuidadores)>0)
+                            <li>Cuidadores:
+                                <ul>
+                                    @foreach ($animal->cuidadores as $cuidador)
+                                        <li>{{$cuidador->nombre}}</li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
                     </a>
                 </div>
             </div>

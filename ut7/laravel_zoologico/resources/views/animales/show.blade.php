@@ -18,6 +18,16 @@
             @foreach($animal->revisiones as $revision)
                 <p>Revision del {{$revision["fechaRevision"]}}: descripcion: {{$revision["descripcion"]}}</p>
             @endforeach
+
+            @if (count($animal->cuidadores)>0)
+                <li>Cuidadores:
+                    <ul>
+                        @foreach ($animal->cuidadores as $cuidador)
+                            <li>{{$cuidador->nombre}}</li>
+                        @endforeach
+                    </ul>
+                </li>
+            @endif
         </div>
     </div>
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Animal;
+use App\Models\Cuidador;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -101,6 +102,11 @@ class AnimalSeeder extends Seeder
             $a->alimentacion = $animal['alimentacion'];
             $a->descripcion = $animal['descripcion'];
             $a->save();
+
+            $a->cuidadores()->attach([
+                Cuidador::all()->skip(0)->take(10)->random()->id,
+                Cuidador::all()->skip(10)->take(10)->random()->id
+            ]);
         }
         $this->command->info('Tabla animales inicializada con datos');
 

@@ -28,4 +28,9 @@ class Animal extends Model
         return $this->revisiones()->count();
     }
 
+    //Relación muchos a muchos
+    public function cuidadores()
+    {
+        return $this->belongsToMany(Cuidador::class);
+    }
 }

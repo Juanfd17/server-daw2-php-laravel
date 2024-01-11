@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Cuidador;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +17,8 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run(){
+        Cuidador::factory(20)->create();
+
         DB::table('revisiones')->delete();
         DB::table('animales')->delete();
 
