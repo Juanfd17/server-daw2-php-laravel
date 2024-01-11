@@ -3,6 +3,11 @@
     Zoológico
 @endsection
 @section('contenido')
+    @if(session('mensaje'))
+        <div class="alert alert-info">
+            {{session('mensaje')}}
+        </div>
+    @endif
     <h1>{{$animal->especie}}</h1>
     <div class="row">
         <div class="col-3" style="background-image: url('{{asset('assets/img/animales')}}/{{$animal->imagen}}'); background-size: contain; background-repeat: no-repeat;">
@@ -31,6 +36,7 @@
         </div>
     </div>
 
+    <button class="btn btn-primary" type="button"><a href="{{route('animales.duplicarPeso', $animal)}}" class="text-light">Duplicar Peso</a></button>
     <button class="btn btn-primary" type="button"><a href="{{route('animales.edit',$animal)}}" class="text-light">Editar</a></button>
     <button class="btn btn-primary" type="button"><a href="{{route('revisiones.create',$animal)}}" class="text-light">Añadir revision</a></button>
     <button class="btn btn-primary" type="button"><a href="{{route('animales.index')}}" class="text-light">Volver al listado</a></button>

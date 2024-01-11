@@ -62,6 +62,13 @@ class AnimalController extends Controller{
         return view('animales.show', ['animal' => $animal]);
     }
 
+    public function duplicarPeso(Animal $animal){
+        $animal->peso = $animal->peso * 2;
+        $animal->save();
+
+        return redirect()->route('animales.show', $animal)->with('mensaje',"Peso duplicado");
+    }
+
     public function destroy($id){
         //
     }

@@ -53,6 +53,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:admin|gestor'])->group(function () {
     // Rutas solo accesibles para usuarios con el rol 'admin' o 'gestor'
     Route::get('animales/{animal}/editar', [AnimalController::class, 'edit'])->name("animales.edit")->middleware('auth');
+    Route::get('animales/{animal}/editar/duplicarPeso', [AnimalController::class, 'duplicarPeso'])->name("animales.duplicarPeso")->middleware('auth');
 });
 
 
