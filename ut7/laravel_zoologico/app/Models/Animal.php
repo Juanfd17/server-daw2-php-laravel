@@ -29,8 +29,7 @@ class Animal extends Model
     }
 
     //Relación muchos a muchos
-    public function cuidadores()
-    {
+    public function cuidadores(){
         return $this->belongsToMany(Cuidador::class);
     }
 }
