@@ -1,23 +1,35 @@
 @extends('layouts.master')
 @section('titulo')
-    Zoológico
+    Museo
 @endsection
 @section('contenido')
     <h1>Lista de Pintores</h1>
 
-    <div class="row bg-secondary g-2 p-3">
-        @foreach( $pintores as $pintor )
-            <div class="col-xs-12 col-sm-6 col-md-4">
-                <div class="bg-dark p-3">
-                    <a class="row justify-content-center" href="{{ route('pintores.show' , $pintor) }}">
-                        <h4 style="min-height:45px;margin:5px 0 10px 0">
-                            {{$pintor->nombre}}
-                        </h4>
-                        <p>N cuandros: {{$pintor->cuadros->count()}}</p>
-                        <p>Pais: {{$pintor->pais}}</p>
-                    </a>
-                </div>
-            </div>
-        @endforeach
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Pais</th>
+                <th scope="col">Cuadros</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @php $bgRojo = false @endphp
+            @foreach( $pintores as $pintor )
+                @if($bgRojo)
+                    <tr class="table-danger">
+                    @php $bgRojo = false @endphp
+                @else
+                    <tr class="table-light">
+                    @php $bgRojo = true @endphp
+                @endif
+                <td><a href="{{ route('pintores.show' , $pintor) }}">{{$pintor->nombre}}</a></td>
+                <td>{{$pintor->pais}}</td>
+                <td>{{$pintor->cuadros->count()}}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('titulo')
-    Zoológico
+    Museo
 @endsection
 @section('contenido')
     @if(session('mensaje'))
@@ -8,17 +8,18 @@
             {{session('mensaje')}}
         </div>
     @endif
-    <h1>{{$pintor->nombre}}</h1>
+    <h1 class="text-danger">{{$pintor->nombre}}</h1>
+
+    <h2>pais: {{$pintor->pais}}</h2>
+    <h2>Cuadros</h2>
+
     <div class="row">
-        <div class="col-12">
-            <p>pais: {{$pintor->pais}}</p>
-            <p>Cuadros</p>
+        @foreach($pintor->cuadros as $cuadro)
+            <div class="col-4">
+                <p>{{$cuadro->nombre}}</p>
+                <img src="{{$cuadro->imagen}}">
+            </div>
 
-            @foreach($pintor->cuadros as $cuadro)
-                <p></p>
-            @endforeach
-        </div>
+        @endforeach
     </div>
-
-
 @endsection

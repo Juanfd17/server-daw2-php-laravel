@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
         DB::table('cuadros')->delete();
         DB::table('pintores')->delete();
 
-        Pintor::factory(2)->create();
+        Pintor::factory(10)->create();
     }
 }

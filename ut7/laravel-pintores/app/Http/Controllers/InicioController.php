@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class InicioController extends Controller {
     public function inicio(){
         //return redirect()->action([AnimalController::class,'index']);
-        return redirect()->route('pintores');
+        return redirect()->route('pintores.index');
 
     }
 }

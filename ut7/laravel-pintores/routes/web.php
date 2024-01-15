@@ -16,6 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [InicioController::class, 'inicio'])->name("inicio");
-Route::get('pintores', [PintorController::class, 'index'])->name("pintores");
+Route::get('pintores', [PintorController::class, 'index'])->name("pintores.index");
 
 Route::get('pintores/{pintor}', [PintorController::class, 'show'])->name("pintores.show");
