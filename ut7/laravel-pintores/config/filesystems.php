@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'cuadros' => [
+            'driver' => 'local',
+            'root' => public_path('assets/img/cuadros'),
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

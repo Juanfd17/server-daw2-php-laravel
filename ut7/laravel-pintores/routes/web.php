@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CuadroController;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PintorController;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,8 @@ Route::get('/', [InicioController::class, 'inicio'])->name("inicio");
 Route::get('pintores', [PintorController::class, 'index'])->name("pintores.index");
 
 Route::get('pintores/{pintor}', [PintorController::class, 'show'])->name("pintores.show");
+
+Route::get('cuadros/{cuadro}/cambiarEstado', [CuadroController::class, 'cambiarEstado'])->name("cuadro.cambiarEstado");
+Route::get('cuadros/crear', [CuadroController::class, 'create'])->name("cuadros.create");
+Route::post('animales', [CuadroController::class, 'store'])->name("cuadros.store");
+

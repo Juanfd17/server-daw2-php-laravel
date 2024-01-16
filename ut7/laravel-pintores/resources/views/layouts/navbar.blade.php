@@ -12,7 +12,7 @@
         <a href="{{route('pintores.index')}}" class="nav-link">Listado de pintores</a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link #">Nuevo cuadro</a>
+        <a href="{{route('cuadros.create')}}" class="nav-link">Nuevo cuadro</a>
       </li>
     </ul>
   </div>
