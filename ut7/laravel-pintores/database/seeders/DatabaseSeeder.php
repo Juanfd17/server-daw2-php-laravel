@@ -21,5 +21,8 @@ class DatabaseSeeder extends Seeder
         DB::table('pintores')->delete();
 
         Pintor::factory(10)->create();
+        $this->call(ExposicionesSeeder::class);
+        $this->call(CueadrosSeeder::class);
+
     }
 }
