@@ -72,7 +72,7 @@ foreach ($dias as $dia){
             <h5 class="card-title">Temperatura maxima: <?php echo $dia->temperatura->maxima; ?>º</h5>
             <h5 class="card-title">Temperatura minima: <?php echo $dia->temperatura->minima; ?>º</h5>
             <p class="card-text">Probabilidad de precipitacion: <?php echo $dia->probPrecipitacion[0]->value; ?>%</p>
-            <p class="card-text">Cota de nieve: <?php echo $dia->cotaNieveProv[0]->value; ?>%</p>
+            <p class="card-text">Cota de nieve: <?php echo $dia->cotaNieveProv[0]->value; ?>m</p>
             <p class="card-text">Velocidad del viento: <?php echo $dia->viento[0]->velocidad; ?>%</p>
             <p class="card-text"><?php echo $dia->estadoCielo[0]->descripcion; ?></p>
         </div>

@@ -10,6 +10,16 @@ class Animal extends Model
 {
     use HasFactory;
     protected $table = 'animales';
+    protected $fillable = [
+        'especie',
+        'slug',
+        'peso',
+        'altura',
+        'fechaNacimiento',
+        'imagen',
+        'alimentacion',
+        'descripcion'
+    ];
 
     public function getEdad(){
         $fechaFormateada=Carbon::parse($this->fechaNacimiento);

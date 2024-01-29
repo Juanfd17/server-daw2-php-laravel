@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateAnimalRequest;
+use App\Http\Requests\UpdateAnimalRequest;
+use App\Http\Resources\AnimalCollection;
+use App\Http\Resources\AnimalResource;
+use App\Models\Animal;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class AnimalApiController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return AnimalCollection
+     */
+    public function index(){
+        $relaciones = ['cuidadores', 'revisiones'];
+        $animales = Animal::with($relaciones);
+        return new AnimalCollection($animales->paginate(3));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return AnimalResource
+     */
+    public function store(CreateAnimalRequest $request){
+        $datos = $request->all();
+        $slug = Str::slug($datos['especie']);
+        $datos['slug'] = $slug;
+
+        return new AnimalResource(Animal::create($datos));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return AnimalResource
+     */
+    public function show(Animal $animal){
+        $animal->load(['cuidadores','revisiones']);
+        return new AnimalResource($animal);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return UpdateAnimalRequest
+     */
+    public function update(UpdateAnimalRequest $request, Animal $animal){
+        $animal->update($request->all());
+        return new UpdateAnimalRequest((array)$animal);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}
