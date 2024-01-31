@@ -65,10 +65,10 @@ class AnimalApiController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Animal $animal){
+        $animal->delete();
+        return response()->json(["mensaje" => "Animal borrado"], 200);
     }
 }
