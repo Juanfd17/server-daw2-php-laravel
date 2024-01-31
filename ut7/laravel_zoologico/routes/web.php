@@ -56,4 +56,5 @@ Route::middleware(['auth', 'role:admin|gestor'])->group(function () {
     Route::get('animales/{animal}/editar/duplicarPeso', [AnimalController::class, 'duplicarPeso'])->name("animales.duplicarPeso")->middleware('auth');
 });
 
-
+Route::get('/profile/crearToken', [ProfileController::class, 'crearToken'])
+    ->name('profile.crearToken')->middleware('auth');
