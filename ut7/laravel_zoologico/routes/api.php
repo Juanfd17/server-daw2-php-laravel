@@ -20,11 +20,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'abilities:insertar-animales'])->group(function () {
     Route::post('/animales', [AnimalApiController::class, 'store']);
     Route::put('/animales/{animal}', [AnimalApiController::class, 'update']);
     Route::patch('/animales/{animal}', [AnimalApiController::class, 'update']);
+});
+
+Route::middleware(['auth:sanctum', 'abilities:borrar-animales'])->group(function () {
     Route::delete('/animales/{animal}', [AnimalApiController::class, 'destroy']);
 });
 
-Route::apiResource('animales', AnimalApiController::class)->parameters(['animales' => 'animal', ])->only(['index', 'show']);
+Route::apiResource('animales', AnimalApiController::class)->parameters(['animales' => 'animal'])->only(['index', 'show']);

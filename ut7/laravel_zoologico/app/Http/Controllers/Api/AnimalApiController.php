@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateAnimalRequest;
+use App\Http\Requests\CreateUsuarioRequest;
 use App\Http\Requests\UpdateAnimalRequest;
 use App\Http\Resources\AnimalCollection;
 use App\Http\Resources\AnimalResource;
@@ -30,7 +30,7 @@ class AnimalApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return AnimalResource
      */
-    public function store(CreateAnimalRequest $request){
+    public function store(CreateUsuarioRequest $request){
         $datos = $request->all();
         $slug = Str::slug($datos['especie']);
         $datos['slug'] = $slug;

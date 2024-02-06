@@ -61,8 +61,11 @@ class ProfileController extends Controller
     public function crearToken(){
         if(!Auth::user()) return response()->json(['error' => 'No autenticado'], 401);
         Auth::user()->tokens()->delete();
-        $token = Auth::user()->createToken('token-api');
-        return response()->json(['token' => $token->plainTextToken]);
+
+        $tokenInsertar = Auth::user()->createToken('token-insertar', ['insertar-animales']);
+        $tokenBorrar = Auth::user()->createToken('token-borrar', ['borrar-animales']);
+
+        return response()->json(['tokenInsertar' => $tokenInsertar->plainTextToken, 'tokenBorrar' => $tokenBorrar->plainTextToken]);
     }
 
 }
