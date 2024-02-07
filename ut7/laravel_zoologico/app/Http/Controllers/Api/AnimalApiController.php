@@ -7,6 +7,8 @@ use App\Http\Requests\CreateUsuarioRequest;
 use App\Http\Requests\UpdateAnimalRequest;
 use App\Http\Resources\AnimalCollection;
 use App\Http\Resources\AnimalResource;
+use App\Http\Resources\RevisionCollection;
+use App\Http\Resources\RevisionesResource;
 use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -70,5 +72,10 @@ class AnimalApiController extends Controller
     public function destroy(Animal $animal){
         $animal->delete();
         return response()->json(["mensaje" => "Animal borrado"], 200);
+    }
+
+    public function revisiones($animalId){
+        $revisiones = Animal::find($animalId)->revisiones()->paginate(1);
+        return new RevisionCollection($revisiones);
     }
 }

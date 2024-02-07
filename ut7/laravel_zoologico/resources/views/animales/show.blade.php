@@ -20,9 +20,59 @@
             <p>Alimentacion: {{$animal->alimentacion}}</p>
             <p>Edad: {{$animal->getEdad()}} años</p>
 
+
+           @php
+           /*
             @foreach($animal->revisiones as $revision)
                 <p>Revision del {{$revision["fechaRevision"]}}: descripcion: {{$revision["descripcion"]}}</p>
             @endforeach
+            */
+           @endphp
+
+            <h1>Reviones:</h1>
+            <button class="btn btn-secondary" type="button" id="cargarRevision">Cargar Revision</button>
+
+            <div id="revisiones">
+
+            </div>
+
+            <div class="d-none" id="noMas">
+                <h1>No hay mas revisiones</h1>
+            </div>
+
+            <script>
+                let botonRevision = document.querySelector("#cargarRevision")
+                let divRevisiones = document.querySelector("#revisiones")
+
+                let pagina = 1;
+                let siguinete = true
+
+                botonRevision.addEventListener("click", async () => {
+                    if (siguinete){
+                        let revision = await cargarRevision({{$animal->id}}, pagina)
+
+                        console.log(revision)
+                        pagina ++;
+
+                        let divRevision = document.createElement("div")
+                        divRevision.innerText = `${revision.data[0].fechaRevision}: ${revision.data[0].descripcion}`
+
+                        divRevisiones.append(divRevision)
+
+                        siguinete = (revision.links.next !== null)
+                    } else {
+                        document.querySelector("#noMas").className = ""
+                    }
+                })
+
+                async function cargarRevision(idAnimal, pagina) {
+                    const response = await fetch(`http://127.0.0.1:8000/api/animales/cargarRevisiones/${idAnimal}?page=${pagina}`);
+                    const data = await response.json();
+
+                    return data
+                }
+            </script>
+
 
             @if (count($animal->cuidadores)>0)
                 <li>Cuidadores:

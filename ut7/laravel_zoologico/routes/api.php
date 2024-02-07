@@ -31,3 +31,5 @@ Route::middleware(['auth:sanctum', 'abilities:borrar-animales'])->group(function
 });
 
 Route::apiResource('animales', AnimalApiController::class)->parameters(['animales' => 'animal'])->only(['index', 'show']);
+
+Route::get('animales/cargarRevisiones/{animalId}', [AnimalApiController::class, 'revisiones']);
