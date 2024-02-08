@@ -17,4 +17,8 @@ class Grupo extends Model{
     public function usuarios(){
         return $this->belongsToMany(Usuario::class, 'usuarios_grupos', 'grupo_id', 'usuario_id');
     }
+
+    public function gastos(){
+        return $this->hasMany(Gasto::class, 'idGrupo', 'id');
+    }
 }

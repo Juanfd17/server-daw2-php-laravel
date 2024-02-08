@@ -1,3 +1,26 @@
-body{
+body {
     padding-top: 4.5rem;
+}
+
+#formularioBusqueda {
+    position: relative;
+}
+
+#resultados {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#resultados li {
+    cursor: pointer;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
 }

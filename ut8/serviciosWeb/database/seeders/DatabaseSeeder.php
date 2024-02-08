@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $user->assignRole($adminRol);
         $user->assignRole($userRol);
 
-        $usuarios = Usuario::factory(400)->create(['password' => bcrypt('12345678')]);
+        $usuarios = Usuario::factory(400)->create(['password' => bcrypt("12345678")]);
 
         foreach ($usuarios as $usuario) {
             $usuario->assignRole($userRol);

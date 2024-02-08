@@ -10,6 +10,7 @@ use App\Http\Resources\AnimalResource;
 use App\Http\Resources\RevisionCollection;
 use App\Http\Resources\RevisionesResource;
 use App\Models\Animal;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -77,5 +78,11 @@ class AnimalApiController extends Controller
     public function revisiones($animalId){
         $revisiones = Animal::find($animalId)->revisiones()->paginate(1);
         return new RevisionCollection($revisiones);
+    }
+
+    public function buscar(Request $request){
+        $animales = Animal::where('especie', "LIKE", "%$request->especie%")->pluck("especie");
+
+        return json_encode($animales);
     }
 }

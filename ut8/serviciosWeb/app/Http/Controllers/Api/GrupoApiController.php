@@ -95,6 +95,7 @@ class GrupoApiController extends Controller{
             return response()->json(["mensaje" => "No eres el administrador del grupo"], 200);
         }
 
+        $grupo->gastos()->delete();
         $grupo->usuarios()->detach();
         $grupo->delete();
         return response()->json(["mensaje" => "Grupo borrado"], 200);
@@ -124,5 +125,14 @@ class GrupoApiController extends Controller{
         }
 
         return response()->json(["mensaje" => "el usuario no está en el grupo"], 200);
+    }
+
+    public function gastos(Grupo $grupo, Request $request){
+        $idGrupos = $request->user()->grupos->pluck('id')->toArray();
+        if (!in_array($grupo->id, $idGrupos) && !$request->user()->hasRole('admin')) {
+            return response()->json(["mensaje" => "no estas en este grupo"], 200);
+        }
+
+        return $grupo->gastos;
     }
 }

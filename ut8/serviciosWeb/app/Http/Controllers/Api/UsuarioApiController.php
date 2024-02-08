@@ -96,6 +96,7 @@ class UsuarioApiController extends Controller{
             }
         }
 
+        $usuario->gastos()->delete();
         $usuario->grupos()->detach();
 
         $usuario->delete();
@@ -114,6 +115,18 @@ class UsuarioApiController extends Controller{
         }
     }
 
+    public function miGastos(Request $request){
+        $usuario = $request->user();
+        return $usuario->gastos;
+    }
+
+    public function gastos(Usuario $usuario){
+        return $usuario->gastos;
+    }
+
+    public function gastosUsuario(Usuario $usuario){
+        return $usuario->gastos;
+    }
 
     public function gruposAdmin(Usuario $usuario){
         $gruposAdmin = $usuario->gruposAdmin->each(function ($grupo) use ($usuario) {

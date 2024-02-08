@@ -15,11 +15,56 @@
         <a href="{{route('animales.create')}}" class="nav-link {{ request()->routeIs('animales.create')? ' active' : ''}}">Nuevo animal</a>
       </li>
     </ul>
+
+      <form class="d-flex" id="formularioBusqueda">
+          <input id="busqueda" class="form-control mr-sm-3" type="text" placeholder="Buscar" aria-label="Buscar">
+      </form>
+      <ul id="resultados" class="d-flex"></ul>
+
+      <script>
+          let inputBusqueda = document.querySelector("#busqueda")
+          inputBusqueda.addEventListener("input", () => {
+              actualizarBusqueda(inputBusqueda.value)
+          })
+
+          function actualizarBusqueda(busqueda) {
+              var myHeaders = new Headers();
+              myHeaders.append("Content-Type", "application/json");
+
+              var raw = JSON.stringify({
+                  "especie": busqueda
+              });
+
+              var requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  body: raw,
+                  redirect: 'follow'
+              };
+
+              fetch("http://127.0.0.1:8000/api/animales/busquedaAjax", requestOptions)
+                  .then(response => response.json())
+                  .then(result => {
+                      console.log(result)
+
+                      let resultados = document.querySelector("#resultados")
+                      resultados.innerHTML = ""
+
+                      for (let resultado of result) {
+                          console.log(resultado)
+                          let li = document.createElement("li")
+                          li.innerHTML = resultado
+
+                          resultados.append(li)
+                      }
+                  })
+                  .catch(error => console.log('error', error));
+          }
+      </script>
+
     {{--@endif --}}
     @if(Auth::check() )
-        <form class="d-flex">
-          <input id="busqueda" class="form-control mr-sm-3" type="text" placeholder="Buscar" aria-label="Buscar">
-        </form>
+
 
         <ul class="navbar-nav navbar-right">
           <li class="nav-item">

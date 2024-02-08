@@ -47,6 +47,10 @@ class Usuario extends Authenticatable
         return $this->belongsToMany(Grupo::class, 'usuarios_grupos', 'usuario_id', 'grupo_id');
     }
 
+    public function gastos(){
+        return $this->hasMany(Gasto::class, 'idUsuario', 'id');
+    }
+
     public function gruposAdmin(){
         return $this->hasMany(Grupo::class, 'id_usuario_admin');
     }
