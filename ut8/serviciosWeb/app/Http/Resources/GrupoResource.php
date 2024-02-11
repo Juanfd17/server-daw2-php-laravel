@@ -19,7 +19,7 @@ class GrupoResource extends JsonResource{
             'descripcion' => $this->descripcion,
             'id_usuario_admin' => $this->id_usuario_admin,
             'usuarios' => UsuarioResource::collection($this->whenLoaded('usuarios')),
-
+            'gastos' => gastoResource::collection($this->whenLoaded('gastos')),
         ];
     }
 }

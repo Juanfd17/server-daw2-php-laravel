@@ -37,6 +37,7 @@ Route::middleware(['auth:sanctum', 'abilities:user'])->group(function () {
     Route::get('gastos/{gasto}/ver', [GastoApiController::class, 'show']);
     Route::patch('gastos/{gasto}/actualizar', [GastoApiController::class, 'actualizar']);
     Route::delete('gastos/{gasto}/borrar', [GastoApiController::class, 'borrar']);
+    Route::get('grupos/{grupo}/gastosEnTotal', [GrupoApiController::class, 'gastosTotales']);
 });
 
 Route::middleware(['auth:sanctum', 'abilities:admin'])->group(function () {
@@ -50,6 +51,7 @@ Route::middleware(['auth:sanctum', 'abilities:admin'])->group(function () {
     Route::apiResource('usuarios', UsuarioApiController::class)->parameters(['usuarios' => 'usuario']);
     Route::apiResource('grupos', GrupoApiController::class)->parameters(['grupos' => 'grupo']);
     Route::apiResource('gastos', GastoApiController::class)->parameters(['gastos' => 'gasto']);
+    Route::get('grupos/{grupo}/gastosTotales', [GrupoApiController::class, 'gastosTotales']);
 
 });
 

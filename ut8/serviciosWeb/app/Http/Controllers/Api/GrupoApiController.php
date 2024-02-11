@@ -8,6 +8,7 @@ use App\Http\Requests\CreateUsuarioRequest;
 use App\Http\Requests\UpdateGrupoRequest;
 use App\Http\Resources\GrupoResource;
 use App\Http\Resources\UsuarioCollection;
+use App\Models\Gasto;
 use App\Models\Grupo;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
@@ -53,8 +54,17 @@ class GrupoApiController extends Controller{
      * @return GrupoResource
      */
     public function show(Grupo $grupo){
-        $grupo->load(['usuarios']);
+        $grupo->load(['usuarios', 'gastos']);
         return new GrupoResource($grupo);
+    }
+
+    public function gastosTotales(Grupo $grupo, Request $request){
+        if ($grupo->id_usuario_admin != $request->user()->id && !$request->user()->hasRole('admin')) {
+            return response()->json(["mensaje" => "No eres miembro de este grupo"], 200);
+        }
+
+        $suma = Gasto::where('idGrupo', $grupo->id)->sum('cantidad');
+        return response()->json(['total' => $suma]);
     }
 
     public function miGrupo(Request $request, Grupo $grupo){
