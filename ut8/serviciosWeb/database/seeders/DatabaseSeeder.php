@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Gasto;
 use App\Models\Grupo;
 use App\Models\Usuario;
 use Database\Factories\UsuarioGrupoFactory;
@@ -41,6 +42,11 @@ class DatabaseSeeder extends Seeder
             $grupo->usuarios()->syncWithoutDetaching(
                 $usuarios->random(rand(1, 4))->pluck('id')->toArray()
             );
+
+            for ($i = 0; $i < 10; $i++) {
+                $gasto = random_int(1, 100);
+                Gasto::factory()->create(['idGrupo' => $grupo->id, 'idUsuario' => $grupo->usuarios()->get()->random()->id, 'nombre' => 'gasto ' . $i, 'descripcion' => 'descripcion gasto ' . $i, 'cantidad' => $gasto, 'categoria' => '1', 'divisa' => '1']);
+            }
         });
     }
 }
