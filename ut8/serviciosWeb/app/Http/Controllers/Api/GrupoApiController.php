@@ -59,7 +59,9 @@ class GrupoApiController extends Controller{
     }
 
     public function gastosTotales(Grupo $grupo, Request $request){
-        if ($grupo->id_usuario_admin != $request->user()->id && !$request->user()->hasRole('admin')) {
+        $usuario = $request->user();
+
+        if (!$grupo->usuarios->contains($usuario->id) && !$request->user()->hasRole('admin')) {
             return response()->json(["mensaje" => "No eres miembro de este grupo"], 200);
         }
 

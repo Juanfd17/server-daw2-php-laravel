@@ -52,6 +52,7 @@ Route::middleware(['auth:sanctum', 'abilities:admin'])->group(function () {
     Route::apiResource('grupos', GrupoApiController::class)->parameters(['grupos' => 'grupo']);
     Route::apiResource('gastos', GastoApiController::class)->parameters(['gastos' => 'gasto']);
     Route::get('grupos/{grupo}/gastosTotales', [GrupoApiController::class, 'gastosTotales']);
+    Route::get('grupos/{grupo}/verGastos', [GrupoApiController::class, 'gastos']);
 
 });
 

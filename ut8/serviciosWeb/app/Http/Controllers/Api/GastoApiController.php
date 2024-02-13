@@ -116,22 +116,4 @@ class GastoApiController extends Controller{
         $this->destroy($gasto);
         return response()->json(["mensaje" => "gasto borrado"], 200);
     }
-
-    public function miGastos(Request $request){
-        $usuario = $request->user();
-        return $usuario->gastos;
-    }
-
-    public function gastos(Usuario $usuario){
-        return $usuario->gastos;
-    }
-
-    public function gruposAdmin(Usuario $usuario){
-        $gruposAdmin = $usuario->gruposAdmin->each(function ($grupo) use ($usuario) {
-            $grupo->load(['usuarios' => function ($query) use ($usuario) {
-                $query->where('id', '!=', $usuario->id);
-            }]);
-        });
-        return GrupoResource::collection($gruposAdmin);
-    }
 }
