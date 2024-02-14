@@ -11,6 +11,7 @@ use App\Http\Resources\UsuarioResource;
 use App\Models\Grupo;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 
@@ -129,11 +130,7 @@ class UsuarioApiController extends Controller{
     }
 
     public function gruposAdmin(Usuario $usuario){
-        $gruposAdmin = $usuario->gruposAdmin->each(function ($grupo) use ($usuario) {
-            $grupo->load(['usuarios' => function ($query) use ($usuario) {
-                $query->where('id', '!=', $usuario->id);
-            }]);
-        });
+        $gruposAdmin = Grupo::where('id_usuario_admin', $usuario->id)->get();
         return GrupoResource::collection($gruposAdmin);
     }
 }
