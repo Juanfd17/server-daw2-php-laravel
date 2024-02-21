@@ -19,10 +19,21 @@ p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
             margin: 0;
             padding: 0;
         }
+
+        .mapaIMG {
+            width: 60%;
+            float: left;
+        }
+
+        .imagenes {
+            width: 40%;
+            float: right;
+        }
     </style>
 </head>
 <body>
 <div id="map"></div>
+<div id="imagenes"></div>
 <script>
     var tamanioIcono = 26
     var icono = L.icon({
@@ -37,13 +48,14 @@ p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
         attribution: '&copy; <href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
     @foreach( $campos as $campo )
-        addMarket({{$campo->latitud}}, {{$campo->longitud}}, "{{$campo->nombre}}")
+        addMarket({{$campo->latitud}}, {{$campo->longitud}}, "{{$campo->nombre}}", "{{$campo->equipo}}")
     @endforeach
 
-    function addMarket(latitud, longitud, nombre) {
+    function addMarket(latitud, longitud, nombre, equipo) {
         const marker = L.marker([latitud, longitud], {icon: icono}).addTo(map).bindPopup(`<b>${nombre}</b>`);
         marker.on('click', function(e) {
             getTiempo(latitud, longitud, this)
+            obtenerImagenesFlickr(latitud, longitud, nombre, equipo)
             this.openPopup();
             map.setView([latitud, longitud], 17)
         });
@@ -52,7 +64,8 @@ p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     map.on("contextmenu", (e) =>{
         map.setView([40, -3.7], 6)
         map.closePopup();
-        //  document.getElementById('imagenes').innerHTML = ""
+        document.getElementById('imagenes').innerHTML = ""
+        quitarFotos()
     })
 
     function getTiempo(latitud, longitud, marcador) {
@@ -65,10 +78,50 @@ p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
             .then((response) => response.json())
             .then((result) => {
                 console.log(result)
-
                 marcador.bindPopup(`<p>${result.ciudad}</p> <img src=https://openweathermap.org/img/wn/${result.icono}@2x.png> <p>Temperatura: ${result.temperatura}º</p> <p>Tiempo: ${result.cielo}</p>`)
             })
             .catch((error) => console.error(error));
+    }
+
+    function obtenerImagenesFlickr(latitud, longitud, nombre, equipo) {
+        nombre += " " + equipo
+        console.log(nombre)
+        const claveAPIFlickr = '48b76c45920773ed6405a942901d8b3a'
+        const urlFlickr = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${claveAPIFlickr}&text=${nombre}&lat=${latitud}&lon=${longitud}&per_page=10&format=json&nojsoncallback=1`
+
+        fetch(urlFlickr)
+            .then(respuesta => respuesta.json())
+            .then(datos => {
+                if (datos.photos) {
+                    let imgs = document.querySelector("#imagenes")
+                    imgs.innerHTML = ""
+                    mostrarFotos()
+                    datos.photos.photo.forEach(foto => {
+                        const urlImagen = `https://farm${foto.farm}.staticflickr.com/${foto.server}/${foto.id}_${foto.secret}.jpg`
+                        let img = document.createElement("img")
+                        img.src = urlImagen
+
+                        imgs.append(img)
+                    })
+                }
+            })
+            .catch(error => console.error(error))
+    }
+
+    function mostrarFotos() {
+        let mapa = document.querySelector("#map")
+        mapa.className = "leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom mapaIMG"
+
+        let imagenes = document.querySelector("#imagenes")
+        imagenes.className = "iamgenes"
+    }
+
+    function quitarFotos() {
+        let mapa = document.querySelector("#map")
+        mapa.className = "leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+
+        let imagenes = document.querySelector("#imagenes")
+        imagenes.className = ""
     }
 
 </script>
