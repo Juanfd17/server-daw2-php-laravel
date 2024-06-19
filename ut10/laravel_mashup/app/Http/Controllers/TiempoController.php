@@ -9,7 +9,6 @@ class TiempoController extends Controller{
         $apiKey = "e91105f038d44d85acf9da9555cfd404";
         $apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=$latitud&lon=$longitud&appid=$apiKey&units=metric&lang=es";
 
-
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
